@@ -1,22 +1,3 @@
-class Pet:
-    PET_TYPES = ["dog", "cat", "rodent", "bird", "reptile", "exotic"]
-    all = []
-
-    def __init__(self, name, pet_type, owner=None):
-        if pet_type not in Pet.PET_TYPES:
-            raise Exception(f"Invalid pet type: {pet_type}")
-        if owner is not None and not isinstance(owner, __import__("lib.owner").owner.Owner):
-            raise Exception("owner must be an instance of Owner")
-
-        self.name = name
-        self.pet_type = pet_type
-        self.owner = owner
-
-        Pet.all.append(self)
-
-
-from .pet import Pet
-
 class Owner:
     def __init__(self, name):
         self.name = name
@@ -34,3 +15,20 @@ class Owner:
     def get_sorted_pets(self):
         """Return pets sorted by their names."""
         return sorted(self.pets(), key=lambda pet: pet.name)
+
+
+class Pet:
+    PET_TYPES = ["dog", "cat", "rodent", "bird", "reptile", "exotic"]
+    all = []
+
+    def __init__(self, name, pet_type, owner=None):
+        if pet_type not in Pet.PET_TYPES:
+            raise Exception(f"Invalid pet type: {pet_type}")
+        if owner is not None and not isinstance(owner, Owner):
+            raise Exception("owner must be an instance of Owner")
+
+        self.name = name
+        self.pet_type = pet_type
+        self.owner = owner
+
+        Pet.all.append(self)
